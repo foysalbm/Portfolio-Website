@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Md. Foysal Bin Mamun — Aeronautical Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --night:#0b1826;
+  --panel:#122336;
+  --panel-2:#16293e;
+  --horizon:#20405f;
+  --amber:#e8a33d;
+  --amber-dim:#8a6224;
+  --sky:#7ec8e3;
+  --paper:#f3efe6;
+  --ink:#e9e7de;
+  --muted:#8ca0b4;
+  --line:#1f3650;
+  --display:"Barlow Condensed",sans-serif;
+  --sans:"Inter",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+  --radius:4px;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--night);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--panel);}
+::-webkit-scrollbar-thumb{background:var(--amber-dim);}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(11,24,38,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:0 2.5rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{
+  font-family:var(--mono);font-size:0.85rem;letter-spacing:0.08em;
+  color:var(--amber);text-decoration:none;display:flex;align-items:center;gap:8px;
+}
+.nav-brand::before{content:"✈";font-size:1rem;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-family:var(--display);font-size:0.95rem;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);
+  text-decoration:none;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--sky);}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-burger span{width:20px;height:2px;background:var(--ink);display:block;}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--panel);border-bottom:1px solid var(--line);padding:1rem 1.5rem;z-index:99;flex-direction:column;gap:0.75rem;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:var(--ink);text-decoration:none;font-family:var(--display);text-transform:uppercase;letter-spacing:0.06em;padding:0.4rem 0;border-bottom:1px solid var(--line);}
+
+/* ── HERO — horizon indicator ── */
+#hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:100px 2.5rem 4rem;
+}
+.horizon-bg{
+  position:absolute;inset:0;z-index:0;
+  background:linear-gradient(to bottom, #0b1826 0%, #0b1826 52%, #14202b 52%, #14202b 100%);
+}
+.horizon-bg::before{
+  content:"";position:absolute;left:0;right:0;top:52%;height:1px;background:var(--amber-dim);
+}
+.horizon-ring{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:900px;height:900px;border-radius:50%;
+  border:1px solid rgba(232,163,61,0.08);
+}
+.horizon-ring.r2{width:1300px;height:1300px;border-color:rgba(232,163,61,0.05);}
+.hero-inner{position:relative;z-index:1;max-width:900px;}
+.hero-tag{
+  font-family:var(--mono);font-size:0.75rem;color:var(--amber);
+  letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1.25rem;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-tag::before{content:"";width:26px;height:1px;background:var(--amber);}
+.hero-name{
+  font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(3rem,8vw,6rem);line-height:0.95;letter-spacing:-0.01em;
+  color:var(--ink);margin-bottom:1rem;
+}
+.hero-name span{color:var(--amber);}
+.hero-role{
+  font-family:var(--mono);font-size:0.95rem;color:var(--sky);
+  letter-spacing:0.04em;margin-bottom:1.5rem;
+}
+.hero-bio{max-width:520px;color:var(--muted);font-size:1rem;margin-bottom:2.25rem;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:0.75rem 1.6rem;font-family:var(--display);font-weight:600;
+  font-size:1rem;letter-spacing:0.04em;text-transform:uppercase;
+  text-decoration:none;border-radius:var(--radius);
+  border:1px solid transparent;cursor:pointer;transition:all 0.2s;
+}
+.btn-primary{background:var(--amber);color:var(--night);border-color:var(--amber);}
+.btn-primary:hover{background:#f4b452;}
+.btn-ghost{border-color:var(--horizon);color:var(--ink);}
+.btn-ghost:hover{border-color:var(--sky);color:var(--sky);}
+
+/* readout strip */
+.readout-strip{
+  position:relative;z-index:1;margin-top:3.5rem;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  max-width:900px;
+}
+.readout{padding:1rem 1.25rem 0.5rem;border-right:1px solid var(--line);}
+.readout:last-child{border-right:none;}
+.readout-val{font-family:var(--mono);font-size:1.6rem;color:var(--amber);}
+.readout-lbl{font-family:var(--sans);font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
+
+/* ── SECTION BASE ── */
+section{padding:6rem 2.5rem;}
+.container{max-width:1080px;margin:0 auto;}
+.sec-eyebrow{
+  font-family:var(--mono);font-size:0.75rem;color:var(--amber);
+  letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.6rem;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-eyebrow::before{content:"";width:26px;height:1px;background:var(--amber);}
+.sec-title{
+  font-family:var(--display);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.9rem,3.5vw,2.6rem);color:var(--ink);margin-bottom:2.5rem;
+  letter-spacing:0.01em;
+}
+#about{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+#education{background:var(--night);}
+#training{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+#research{background:var(--night);}
+#achievements{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+#contact{background:var(--night);}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.about-text p{color:var(--muted);margin-bottom:1rem;font-size:0.95rem;}
+.about-text strong{color:var(--ink);}
+.skill-block{margin-top:2rem;}
+.skill-block-lbl{font-family:var(--mono);font-size:0.72rem;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem;}
+.tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tag{
+  border:1px solid var(--horizon);border-radius:99px;padding:5px 14px;
+  font-family:var(--mono);font-size:0.75rem;color:var(--ink);background:var(--panel-2);
+}
+.membership-list{display:flex;flex-direction:column;gap:0.85rem;}
+.membership-item{
+  display:flex;justify-content:space-between;gap:1rem;
+  padding:0.85rem 0;border-bottom:1px solid var(--line);
+  font-size:0.88rem;
+}
+.membership-item .m-name{color:var(--ink);font-weight:500;}
+.membership-item .m-sub{color:var(--muted);font-family:var(--mono);font-size:0.75rem;text-align:right;}
+
+/* ── EDUCATION — flight path ── */
+.runway{position:relative;padding-left:2rem;}
+.runway::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:repeating-linear-gradient(to bottom,var(--amber-dim) 0 6px,transparent 6px 12px);}
+.leg{position:relative;margin-bottom:2rem;}
+.leg::before{content:"";position:absolute;left:-2rem;top:4px;width:10px;height:10px;border:2px solid var(--amber);border-radius:50%;background:var(--night);transform:translateX(1px);}
+.leg-session{font-family:var(--mono);font-size:0.72rem;color:var(--amber);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.3rem;}
+.leg-degree{font-family:var(--display);font-size:1.25rem;font-weight:600;color:var(--ink);}
+.leg-school{color:var(--muted);font-size:0.88rem;margin-top:0.15rem;}
+.altitude-strip{display:flex;flex-wrap:wrap;gap:6px;margin-top:0.75rem;}
+.alt{
+  font-family:var(--mono);font-size:0.72rem;background:var(--panel-2);
+  border:1px solid var(--horizon);border-radius:3px;padding:3px 9px;color:var(--sky);
+}
+.gpa-badge{
+  display:inline-block;margin-top:0.75rem;font-family:var(--mono);font-size:0.78rem;
+  background:var(--amber);color:var(--night);padding:3px 12px;border-radius:3px;font-weight:600;
+}
+
+/* ── TRAINING — manifest table ── */
+.manifest{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.manifest thead th{
+  font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;
+  color:var(--sky);text-align:left;padding:0.6rem 0.9rem;border-bottom:1px solid var(--horizon);
+}
+.manifest tbody td{padding:0.85rem 0.9rem;border-bottom:1px solid var(--line);color:var(--ink);vertical-align:top;}
+.manifest tbody tr:hover{background:var(--panel-2);}
+.manifest .m-air{color:var(--amber);font-family:var(--mono);font-size:0.8rem;}
+.manifest .m-date{color:var(--muted);font-family:var(--mono);font-size:0.78rem;white-space:nowrap;}
+
+/* ── RESEARCH ── */
+.paper-card{
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--amber);
+  border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1.25rem;
+}
+.paper-status{
+  font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;
+  padding:2px 10px;border-radius:99px;display:inline-block;margin-bottom:0.75rem;
+}
+.paper-status.published{background:rgba(126,200,227,0.15);color:var(--sky);}
+.paper-status.review{background:rgba(232,163,61,0.15);color:var(--amber);}
+.paper-title{font-family:var(--display);font-size:1.2rem;font-weight:600;color:var(--ink);margin-bottom:0.6rem;line-height:1.3;}
+.paper-meta{font-family:var(--mono);font-size:0.78rem;color:var(--muted);}
+.paper-meta a{color:var(--sky);}
+
+/* ── ACHIEVEMENTS — log book ── */
+.log-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:2rem;}
+.log-card{
+  background:var(--night);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.2rem 1.4rem;
+}
+.log-medal{font-family:var(--mono);font-size:0.68rem;color:var(--amber);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;}
+.log-title{font-family:var(--display);font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:0.3rem;}
+.log-sub{font-size:0.82rem;color:var(--muted);}
+
+details.logbook{background:var(--night);border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden;}
+details.logbook summary{
+  cursor:pointer;padding:1rem 1.4rem;font-family:var(--mono);font-size:0.82rem;
+  color:var(--sky);text-transform:uppercase;letter-spacing:0.05em;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;
+}
+details.logbook summary::-webkit-details-marker{display:none;}
+details.logbook summary::after{content:"+ EXPAND FULL LOG";color:var(--amber);}
+details.logbook[open] summary::after{content:"– COLLAPSE";}
+.logbook-body{padding:0 1.4rem 1.2rem;border-top:1px solid var(--line);}
+.logbook-body ul{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:0.6rem;}
+.logbook-body li{
+  font-size:0.83rem;color:var(--muted);padding-left:1.1rem;position:relative;line-height:1.6;
+}
+.logbook-body li::before{content:"›";position:absolute;left:0;color:var(--amber);}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.contact-cards{display:flex;flex-direction:column;gap:0.75rem;}
+.contact-card{
+  display:flex;align-items:center;gap:1rem;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:0.9rem 1.1rem;text-decoration:none;color:var(--ink);transition:all 0.2s;
+}
+.contact-card:hover{border-color:var(--amber);transform:translateX(4px);}
+.contact-icon{
+  width:38px;height:38px;border-radius:4px;background:var(--panel-2);
+  display:flex;align-items:center;justify-content:center;font-size:0.85rem;
+  color:var(--amber);font-family:var(--mono);flex-shrink:0;
+}
+.contact-lbl{font-family:var(--mono);font-size:0.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+.contact-val{font-size:0.88rem;font-weight:500;margin-top:1px;}
+.flight-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:2rem;display:flex;flex-direction:column;justify-content:center;
+}
+.flight-card-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:0.78rem;color:var(--muted);padding:0.5rem 0;border-bottom:1px dashed var(--line);}
+.flight-card-row span:last-child{color:var(--sky);}
+.flight-card-row:last-child{border-bottom:none;}
+
+footer{
+  background:var(--night);border-top:1px solid var(--line);
+  padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:0.72rem;color:var(--muted);flex-wrap:wrap;gap:1rem;
+}
+
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  .about-grid,.contact-grid{grid-template-columns:1fr;}
+  .readout-strip{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:680px){
+  nav{padding:0 1.25rem;}
+  .nav-links{display:none;}
+  .nav-burger{display:flex;}
+  section{padding:4rem 1.25rem;}
+  #hero{padding:90px 1.25rem 3rem;}
+  .manifest{font-size:0.78rem;}
+  .manifest thead{display:none;}
+  .manifest tbody td{display:block;padding:0.4rem 0.9rem;border-bottom:none;}
+  .manifest tbody tr{border-bottom:1px solid var(--line);display:block;padding:0.6rem 0;}
+  footer{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-brand">FOYSAL / AVIATION ENG.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#training">Training</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#education" onclick="closeMenu()">Education</a>
+  <a href="#training" onclick="closeMenu()">Training</a>
+  <a href="#research" onclick="closeMenu()">Research</a>
+  <a href="#achievements" onclick="closeMenu()">Achievements</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="horizon-bg"></div>
+  <div class="horizon-ring"></div>
+  <div class="horizon-ring r2"></div>
+  <div class="hero-inner fade-in">
+    <div class="hero-tag">Ref. IN-2026-C1417-MU · Cleared for approach</div>
+    <h1 class="hero-name">MD. FOYSAL BIN<br/><span>MAMUN</span></h1>
+    <p class="hero-role">// Aeronautical & Aviation Science Engineering — College of Aviation Technology, Dhaka</p>
+    <p class="hero-bio">Final-year aeronautical engineering student with hands-on line experience across the ATR 72, Boeing 737/777/787, and a published research track in computational fluid dynamics and machine learning. Runs long distance the way he studies systems — deliberately, and to the finish.</p>
+    <div class="hero-actions">
+      <a href="#training" class="btn btn-primary">View Flight Training →</a>
+      <a href="#research" class="btn btn-ghost">Research Paper ↗</a>
+    </div>
+  </div>
+  <div class="readout-strip fade-in">
+    <div class="readout"><div class="readout-val">3.71</div><div class="readout-lbl">Peak Semester CGPA</div></div>
+    <div class="readout"><div class="readout-val">6</div><div class="readout-lbl">Aircraft Types Trained On</div></div>
+    <div class="readout"><div class="readout-val">1</div><div class="readout-lbl">Published Research Paper</div></div>
+    <div class="readout"><div class="readout-val">50+</div><div class="readout-lbl">Endurance Race Medals</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="sec-eyebrow fade-in">Flight Profile</div>
+    <h2 class="sec-title fade-in">About</h2>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>I'm <strong>Md. Foysal Bin Mamun</strong>, an aeronautical and aviation science engineering student based in Sirajganj &amp; Dhaka, Bangladesh. My work sits at the intersection of aircraft systems and computation — from assisting on the restoration of a MiG-21 to co-authoring a machine learning study on magnetohydrodynamic nanofluid convection.</p>
+        <p>Outside coursework, I completed an international research internship in Electrical &amp; Electronics Engineering at the Manipal Institute of Technology under IAESTE India, and I stay active as a long-distance runner, cyclist, and karateka — currently holding medals from over 30 running events across Bangladesh.</p>
+        <div class="skill-block">
+          <div class="skill-block-lbl">// Computational Skills</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">C</span>
+            <span class="tag">MS Excel (Formulas &amp; Functions)</span>
+            <span class="tag">MS Word</span><span class="tag">PowerPoint</span>
+            <span class="tag">Adobe Illustrator</span><span class="tag">Photoshop</span>
+            <span class="tag">Computer Hardware Fundamentals</span>
+          </div>
+        </div>
+      </div>
+      <div class="fade-in" style="transition-delay:0.1s">
+        <div class="skill-block-lbl">// Memberships</div>
+        <div class="membership-list">
+          <div class="membership-item"><span class="m-name">Aviator Club Bangladesh</span><span class="m-sub">CAT Dhaka</span></div>
+          <div class="membership-item"><span class="m-name">IAESTE Bangladesh</span><span class="m-sub">CAT Dhaka</span></div>
+          <div class="membership-item"><span class="m-name">Tiger Fitness Club</span><span class="m-sub">Uttara, Dhaka</span></div>
+          <div class="membership-item"><span class="m-name">Badhan Blood Donation Org.</span><span class="m-sub">Since 2018</span></div>
+          <div class="membership-item"><span class="m-name">BAF Shaheen Blood Bank</span><span class="m-sub">Since 2019</span></div>
+          <div class="membership-item"><span class="m-name">DhakaRun21K Community</span><span class="m-sub">Since 2024</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="sec-eyebrow fade-in">Flight Path</div>
+    <h2 class="sec-title fade-in">Education</h2>
+    <div class="runway fade-in">
+      <div class="leg">
+        <div class="leg-session">Session 2021 – 2022</div>
+        <div class="leg-degree">B.Sc. in Aeronautical and Aviation Science &amp; Engineering</div>
+        <div class="leg-school">College of Aviation Technology, Dhaka, Bangladesh</div>
+        <div class="altitude-strip">
+          <span class="alt">Y1S1 · 3.29</span>
+          <span class="alt">Y1S2 · 3.55</span>
+          <span class="alt">Y2S3 · 3.34</span>
+          <span class="alt">Y2S4 · 3.56</span>
+          <span class="alt">Y3S5 · 3.71</span>
+          <span class="alt">Y3S6 · 3.54</span>
+        </div>
+      </div>
+      <div class="leg">
+        <div class="leg-session">Session 2019 – 2020</div>
+        <div class="leg-degree">Higher Secondary Certificate (Science)</div>
+        <div class="leg-school">B A F Shaheen School and College, Paharkanchanpur, Dhaka</div>
+        <span class="gpa-badge">GPA 5.00 / 5.00</span>
+      </div>
+      <div class="leg">
+        <div class="leg-session">Session 2017 – 2018</div>
+        <div class="leg-degree">Secondary School Certificate (Science)</div>
+        <div class="leg-school">S. B. Railway Colony High School, Sirajganj, Rajshahi</div>
+        <span class="gpa-badge">GPA 4.72 / 5.00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING / INTERNSHIP -->
+<section id="training">
+  <div class="container">
+    <div class="sec-eyebrow fade-in">Manifest</div>
+    <h2 class="sec-title fade-in">On-the-Job Training &amp; Internship</h2>
+
+    <div class="fade-in" style="margin-bottom:2.5rem">
+      <div class="skill-block-lbl">// Research Internship</div>
+      <table class="manifest">
+        <tbody>
+          <tr><td><strong>Host</strong></td><td>Manipal Institute of Technology (by IAESTE India)</td></tr>
+          <tr><td><strong>Department</strong></td><td>Electrical and Electronics Engineering</td></tr>
+          <tr><td><strong>Supervisor</strong></td><td>Dr. James Antony Pinto</td></tr>
+          <tr><td><strong>Reference</strong></td><td class="m-air">IN-2026-C1417-MU</td></tr>
+          <tr><td><strong>Duration</strong></td><td class="m-date">01 Jun 2026 – 24 Jul 2026 (Completed)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fade-in" style="transition-delay:0.1s">
+      <div class="skill-block-lbl">// Aircraft Practical Training Log</div>
+      <table class="manifest">
+        <thead><tr><th>Aircraft / Scope</th><th>Operator</th><th>Location</th><th>Date</th></tr></thead>
+        <tbody>
+          <tr><td>MiG-21, C-130B Hercules, Alouette III (maintenance &amp; restoration)</td><td class="m-air">BAF Museum</td><td>Dhaka</td><td class="m-date">17 Mar 2022</td></tr>
+          <tr><td>ATR 72-600 (on-the-job practical)</td><td class="m-air">NOVOAIR</td><td>Cox's Bazar Airport</td><td class="m-date">31 Jul 2023</td></tr>
+          <tr><td>Boeing 777-300 (live practical)</td><td class="m-air">Biman Bangladesh</td><td>HSIA, Dhaka</td><td class="m-date">08 Jan 2024</td></tr>
+          <tr><td>Boeing 787-9 (live practical)</td><td class="m-air">Biman Bangladesh</td><td>Osmani Intl, Sylhet</td><td class="m-date">09 Jan 2024</td></tr>
+          <tr><td>ATR 72-500 / Boeing 737-800 (live practical)</td><td class="m-air">NOVOAIR / US-Bangla</td><td>HSIA Dhaka / Cox's Bazar</td><td class="m-date">3–4 Jan 2025</td></tr>
+          <tr><td>English for Everyday (practical training)</td><td class="m-air">—</td><td>—</td><td class="m-date">08 Jan 2025</td></tr>
+          <tr><td>Boeing 787-8 &amp; 777-300 (live practical)</td><td class="m-air">Biman Bangladesh</td><td>HSIA Dhaka / Shah Amanat, Chattogram</td><td class="m-date">24–25 May 2025</td></tr>
+          <tr><td>Basic of Ground Operation (Wings for All CSR) — Top Scorer, Batch 2.0</td><td class="m-air">Wings for All</td><td>Dhaka</td><td class="m-date">05 Nov 2025</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="sec-eyebrow fade-in">Publication</div>
+    <h2 class="sec-title fade-in">Research Paper</h2>
+    <div class="paper-card fade-in">
+      <span class="paper-status published">Published · Elsevier, AI Thermal Fluids</span>
+      <div class="paper-title">Computational and Machine Learning Investigation of Conjugate Magnetohydrodynamic Natural Convection and Entropy Generation in Nanofluid-Filled Filleted Chamber with Corrugated Cylinder</div>
+      <div class="paper-meta">DOI: <a href="https://doi.org/10.1016/j.aitf.2026.100048" target="_blank" rel="noopener">10.1016/j.aitf.2026.100048</a></div>
+    </div>
+    <div class="paper-card fade-in" style="transition-delay:0.1s">
+      <span class="paper-status review">Under Review</span>
+      <div class="paper-title">Companion study — same investigation, extended edition, currently under peer review</div>
+      <div class="paper-meta">Status: Under Review</div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="sec-eyebrow fade-in">Log Book</div>
+    <h2 class="sec-title fade-in">Extra-Curricular Achievements</h2>
+
+    <div class="log-grid fade-in">
+      <div class="log-card">
+        <div class="log-medal">National · Academic</div>
+        <div class="log-title">4 Gold Medals</div>
+        <div class="log-sub">Debating, poem recitation, and two-time Best Volunteer across student life.</div>
+      </div>
+      <div class="log-card">
+        <div class="log-medal">National · Culture</div>
+        <div class="log-title">2nd Place — National Children &amp; Adolescent Cultural Competition 2017</div>
+        <div class="log-sub">Islamic Song, Quran Recitation, and Azan.</div>
+      </div>
+      <div class="log-card">
+        <div class="log-medal">Karate</div>
+        <div class="log-title">Bronze — 3rd Hoshi Ryu Open Karate Championship 2025</div>
+        <div class="log-sub">Podium finish, Malaysia.</div>
+      </div>
+      <div class="log-card">
+        <div class="log-medal">Marathon</div>
+        <div class="log-title">Bronze — Bangabandhu Sheikh Mujib Dhaka Marathon 2024</div>
+        <div class="log-sub">Organized by Bangladesh Army, AIMS-certified.</div>
+      </div>
+      <div class="log-card">
+        <div class="log-medal">Marathon</div>
+        <div class="log-title">Gold — Sonar Bangla Half Marathon 2025</div>
+        <div class="log-sub">Expanded athletic portfolio beyond standard distance events.</div>
+      </div>
+      <div class="log-card">
+        <div class="log-medal">Cycling</div>
+        <div class="log-title">Gold — SDC Fastest 1Hour Challenge (Virtual) 2025</div>
+        <div class="log-sub">Dhaka regional ranking.</div>
+      </div>
+    </div>
+
+    <details class="logbook fade-in">
+      <summary>Full Running &amp; Endurance Event Log (35+ entries)</summary>
+      <div class="logbook-body">
+        <ul>
+          <li>MUVS RUN &amp; RIDE: Tourism for Peace and Unity — cycling medal &amp; certificate</li>
+          <li>Green Bangladesh Virtual Challenge 2025 — Bronze medal</li>
+          <li>PlayRun Half Marathon 2024 — Gold category medal</li>
+          <li>Khulna 25K Run 2024 — Gold medal</li>
+          <li>Narayanganj 10K Run 2024 — Gold medal</li>
+          <li>Beanibazar Half Marathon 2024 — Commemorative medal</li>
+          <li>54th Independence Day Run 2025 (22 Feb) — Gold medal</li>
+          <li>Chhatak Half Marathon 2025 — Distinctive medal</li>
+          <li>Egiye Bangladesh 15K Virtual Run 2025 — Bronze medal</li>
+          <li>(10K) Fit Bangladesh Healthy Future 2025 — Gold medal</li>
+          <li>Outrun BD Marine Series SE 2025 — Gold medal</li>
+          <li>Uncharted 7.5K: New Year Run 2025 — Gold medal</li>
+          <li>Bangladesh 0.0 KM — Crest of distinction with medal</li>
+          <li>Summer 15K Run 2025 — Medal</li>
+          <li>Decca Series 15K Virtual Challenge 2025 — Distinctive medal</li>
+          <li>Run For July Revolution 8KM — Gold category medal</li>
+          <li>Uttara Summer 10K 2025 (28 Jul) — Gold medal</li>
+          <li>XVR RUN FEST! 10KM — Highest-category black medal</li>
+          <li>Golden Megacity Dhaka Virtual Challenge — Prestigious medal</li>
+          <li>Velocity 15K Run – Virtual Edition (10 Oct 2025) — Gold category medal</li>
+          <li>Saint Martin Island 9KM Virtual Run (Powered by Elaven) — Distinct medal</li>
+          <li>Run for Happiness – Season 1.0 (Virtual) — Medal</li>
+          <li>RFH Summer 10K Virtual Run 2025 — Gold medal</li>
+          <li>Global Running Day 2025 (10K) — Bronze medal</li>
+          <li>Sports Bangla Men's 7.5K Run 2025 — Gold medal</li>
+          <li>Inspiring Bangladesh Family Run 2025 (Powered by CHUTI Resort Cox's Bazar) — Gold medal</li>
+          <li>City Run 10K 2025 — Medal</li>
+          <li>Sunrise Run VR 2025 — Gold medal with crest</li>
+          <li>XVR Summer Run 2025! (10K) — Top-tier medal</li>
+          <li>নবান দৌড় উৎসব ১৪৩২ (32KM) 2025 — Highest-category black medal</li>
+          <li>Breaking Limits: The Ultimate Virtual Run 2025 — Top-tier gold medal</li>
+          <li>Sajek 30 KM Virtual Challenge 2025 — Commemorative medal</li>
+          <li>Cumilla 15KM Virtual Run — Signature medal</li>
+          <li>54th Victory Day Virtual Run 2025 — Signature medal</li>
+          <li>Victory Celebration with Dourbid 2025 — Gold category signature medal</li>
+          <li>DhakaRun21K Virtual Challenge 2025 — Highest category medal</li>
+          <li>Run For Green Future 2025 — Certificate of Recognition (reforestation advocacy)</li>
+          <li>International Youth Day Run 2025 (Powered by Fuel) — Gold medal</li>
+          <li>Run For Peace 2025 — Commemorative medal</li>
+          <li>Victory Day Virtual Run 2025 — Commemorative medal (1971 independence)</li>
+          <li>Active Nation Run for Healthy Life – Virtual Run 2026 — Prestigious medal</li>
+          <li>Run Sirajganj 7.5K 2026 — Historic medal (hometown's first athletic competition)</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-eyebrow fade-in">Ground Control</div>
+    <h2 class="sec-title fade-in">Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-cards fade-in">
+        <a href="mailto:mdfoysalbinmamun015@gmail.com" class="contact-card">
+          <div class="contact-icon">@</div>
+          <div><div class="contact-lbl">Email</div><div class="contact-val">mdfoysalbinmamun015@gmail.com</div></div>
+        </a>
+        <a href="tel:+8801734336741" class="contact-card">
+          <div class="contact-icon">☏</div>
+          <div><div class="contact-lbl">Phone</div><div class="contact-val">+88 01734336741</div></div>
+        </a>
+        <div class="contact-card" style="cursor:default">
+          <div class="contact-icon">📍</div>
+          <div><div class="contact-lbl">Location</div><div class="contact-val">Sirajganj Sadar-6700, Rajshahi, Bangladesh</div></div>
+        </div>
+      </div>
+      <div class="flight-card fade-in" style="transition-delay:0.1s">
+        <div class="flight-card-row"><span>STATUS</span><span>Open to Internship / Collaboration</span></div>
+        <div class="flight-card-row"><span>FIELD</span><span>Aeronautical &amp; Aviation Science Engineering</span></div>
+        <div class="flight-card-row"><span>BASE</span><span>Dhaka / Sirajganj, Bangladesh</span></div>
+        <div class="flight-card-row"><span>INTEREST</span><span>Aircraft Systems · CFD · ML Research</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Md. Foysal Bin Mamun · All rights reserved.</span>
+  <span>Ref. IN-2026-C1417-MU</span>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById("mobileMenu").classList.toggle("open");}
+function closeMenu(){document.getElementById("mobileMenu").classList.remove("open");}
+document.addEventListener("click",function(e){
+  if(!e.target.closest("nav") && !e.target.closest("#mobileMenu")) closeMenu();
+});
+const observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){ if(entry.isIntersecting) entry.target.classList.add("visible"); });
+},{threshold:0.1});
+document.querySelectorAll(".fade-in").forEach(function(el){observer.observe(el);});
+window.addEventListener("load",function(){
+  document.querySelectorAll("#hero .fade-in").forEach(function(el){el.classList.add("visible");});
+});
+</script>
+</body>
+</html>
